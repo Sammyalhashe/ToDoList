@@ -1,0 +1,39 @@
+<div class="login-main">
+  <div [appEmail]="[this.email,this.password]" class="login-holder container">
+    <div class="row justify-content-center">
+      <div class="label-center">Sign in</div>
+    </div>
+    <div class="row">
+      <div class="example-container col-md-10 col-md-offset-5">
+        <mat-form-field>
+          <input type="email" [(ngModel)]="this.email" matInput placeholder="Email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="password" [(ngModel)]="this.password" matInput placeholder="Password">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div style="margin: 0 auto;">
+        <button disabled="true" [appSubmit]="[this.email, this.password]" mat-raised-button (click)="this.login($event)" color="primary"
+          class="submit-button">Submit</button>
+        <button disabled="true" [appSubmit]="[this.email, this.password]" mat-raised-button (click)="this.signUp($event)" class="submit-button">Sign
+          Up</button>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="or">
+        <b>OR</b>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <button mat-raised-button (click)="this.googleLogin($event)"
+              class="submit-button"> <mat-icon class="google-icon" svgIcon="google"></mat-icon>Sign in with Google
+      </button>
+    </div>
+  </div>
+  <div class="container">
+
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<button (click)="this.addTask($event)" class="add-task-button" mat-fab>+</button><div class="holder">
+  <mat-card [@listAnimation] *ngFor="let task of this.tasks" class="container mat-card-holder">
+    <div class="row dataHolder">
+      <div class="col-4"><b>Task</b></div>
+      <div class="col-4"><b>Priority</b></div>
+      <div class="col-4">
+        <button mat-raised-button color="primary" class="submit-button" (click)="this.editTask($event, task.id)">Edit</button>
+        <button mat-raised-button color="accent" class="submit-button" (click)="this.deleteTask($event, task.id)">Delete</button>
+      </div>
+    </div>
+    <div class="row dataHolder">
+      <div class="col-4">{{task.task}}</div>
+      <div class="col-4">{{task.priority}}</div>
+    </div>
+  </mat-card>
+  <mat-card [@listAnimation] *ngIf="this.taskAdding" class="container mat-card-holder">
+    <div class="row">
+      <mat-form-field class="col">
+        <input [(ngModel)]="this.newTask" class="inputField" matInput placeholder="Task">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col">
+        <input [(ngModel)]="this.newPriority" class="inputField" matInput placeholder="Priority">
+      </mat-form-field>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-10"></div>
+      <button mat-raised-button color="primary" (click)="this.submitNewTask($event)" class="col-2 align-self-end submit-button2">Submit</button>
+    </div>
+  </mat-card>
+</div>
