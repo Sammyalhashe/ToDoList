@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import { Itask } from '../Shared/Itask';
 import { TaskService } from './tasks.service';
 import { animationsList } from './task-list.animations';
 
-import { Observable } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 
@@ -18,11 +18,12 @@ export interface DialogData {
   styleUrls: ['./task-list.component.scss'],
   animations: animationsList
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnDestroy {
   newTask: string;
   newPriority: string;
   serverResponse: any;
   taskAdding: boolean;
+  taskSub: Subscription;
   tasks: Itask[];
 
   constructor(private task: TaskService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
@@ -31,7 +32,7 @@ export class TaskListComponent implements OnInit {
     this.tasks = [];
       this.newTask = '';
       this.newPriority = '';
-    this.task.getTasks().subscribe(data => {
+    this.taskSub = this.task.getTasks().subscribe(data => {
       data.forEach(task => {
         console.log(task);
           this.tasks.push(task);
@@ -39,7 +40,14 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+      this.taskSub.unsubscribe();
+  }
+
+
   addTask(event) {
+      this.newTask = '';
+      this.newPriority = '';
     this.taskAdding = true;
   }
 
@@ -51,6 +59,14 @@ export class TaskListComponent implements OnInit {
       this.tasks.push(resp);
         this.openSnackBar('add', resp.id);
     });
+    this.newTask = '';
+    this.newPriority = '';
+  }
+
+  cancelSubmit(event) {
+      this.newPriority = '';
+      this.newTask = '';
+      this.taskAdding = false;
   }
 
   deleteTask(event, id: string) {

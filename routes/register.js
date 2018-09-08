@@ -18,10 +18,12 @@ router.get('/', (req, res) => {
 router.post('/user/add', async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
+  let auth = req.body.auth || '';
   let alreadyExists = false;
   console.log({
     email: email,
-    password: password
+    password: password,
+      auth: auth
   });
 
   /* get collection of all users */
@@ -31,23 +33,40 @@ router.post('/user/add', async (req, res) => {
     .then(snapshot => {
       snapshot.forEach(doc => {
         let data = doc.data();
-        if (data.email === email) {
-          res.status(409).send('this account already exists');
-          alreadyExists = true;
-          return;
+        console.log(data);
+        console.log(data.auth !== '');
+        if (auth) {
+          console.log('auth: ' + auth);
+          if (data.email === email && auth === data.auth) {
+              console.log('already exists');
+              res.status(409).send('this account already exists');
+              alreadyExists = true;
+              return;
+          }
+        } else {
+            console.log('non-auth: ' + auth);
+            if (data.email === email && !data.auth) {
+                console.log('already exists');
+                res.status(409).send('this account already exists');
+                alreadyExists = true;
+                return;
+            }
         }
       });
+      console.log(alreadyExists);
       if (!alreadyExists) {
         docRef
           .add({
             email: email,
-            password: password
+            password: password,
+              auth: auth
           })
           .then(ref => {
             res.status(201).json({
               id: ref.id,
               email: email,
-              password: password
+              password: password,
+                auth: auth
             });
           })
           .catch(err => {

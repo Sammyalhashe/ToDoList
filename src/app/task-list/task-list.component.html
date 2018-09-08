@@ -5,12 +5,14 @@
       <div class="col-4"><b>Priority</b></div>
       <div class="col-4">
         <button mat-raised-button color="primary" class="submit-button" (click)="this.editTask($event, task.id)">Edit</button>
-        <button mat-raised-button color="accent" class="submit-button" (click)="this.deleteTask($event, task.id)">Delete</button>
       </div>
     </div>
     <div class="row dataHolder">
       <div class="col-4">{{task.task}}</div>
       <div class="col-4">{{task.priority}}</div>
+      <div class="col-4">
+        <button mat-raised-button color="accent" class="submit-button" (click)="this.deleteTask($event, task.id)">Delete</button>
+      </div>
     </div>
   </mat-card>
   <mat-card [@listAnimation] *ngIf="this.taskAdding" class="container mat-card-holder">
@@ -25,7 +27,8 @@
       </mat-form-field>
     </div>
     <div class="row justify-content-end">
-      <div class="col-10"></div>
+      <!--<div class="col-8"></div>-->
+      <button mat-raised-button color="warn" (click)="this.cancelSubmit($event)" class="col-2 align-self-start submit-button2">Cancel</button>
       <button mat-raised-button color="primary" (click)="this.submitNewTask($event)" class="col-2 align-self-end submit-button2">Submit</button>
     </div>
   </mat-card>

@@ -9,6 +9,10 @@ import { LoginService } from './login/login.service';
 export class AppComponent {
   constructor(private _login: LoginService) {}
 
+  isLoggedIn(): boolean {
+    return !this._login.id;
+  }
+
     logOut(event) {
         this._login.logOut();
     }

@@ -19,11 +19,11 @@ app.use(express.static(distDir));
 
 const port = process.env.PORT || 3000;
 
-/*
- *app.get('/', (req, res) => {
- *    res.render(distDir + "index.html");
- *});
- */
+
+ // app.get('/', (req, res) => {
+ //     res.render(distDir + "index.html");
+ // });
+
 
 app.use('/api', baseApiRoute);
 app.use('/api/users', registerRoutes);

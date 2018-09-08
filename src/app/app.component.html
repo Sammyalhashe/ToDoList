@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" class="main-toolbar">
   ToDo List
   <span class="rightOptions">
-    <button [disabled]="!this._login.id" mat-stroked-button class="main-toolbar-button" (click)="this.logOut($event)">Log Out</button>
-    <button [disabled]="!this._login.id" mat-stroked-button class="main-toolbar-button">History</button>
+    <button [disabled]="isLoggedIn()" mat-stroked-button class="main-toolbar-button" (click)="this.logOut($event)">Log Out</button>
+    <button [disabled]="isLoggedIn()" mat-stroked-button class="main-toolbar-button">History</button>
   </span>
 </mat-toolbar>
 <br />
