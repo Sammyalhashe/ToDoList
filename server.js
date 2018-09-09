@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 /* Angular static directory stuff */
-const distDir = __dirname + '/public/';
+const distDir = __dirname + '/dist/';
 app.use(express.static(distDir));
 
 const port = process.env.PORT || 3000;
